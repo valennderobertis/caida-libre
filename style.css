@@ -1,0 +1,221 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  background-color: #05080d;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  color: #fff;
+}
+
+#game-wrapper {
+  position: relative;
+  aspect-ratio: 768 / 1024;
+  height: 96vh;
+  max-height: 980px;
+  background: #000;
+  border-radius: 12px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.95), 0 0 20px rgba(251, 191, 36, 0.35);
+  overflow: hidden;
+  border: 4px solid #233044;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas#gameCanvas {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  background: #080c14;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Efecto CRT Scanlines sutil */
+#crt-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.18) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.02),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 255, 0, 0.02)
+  );
+  background-size: 100% 4px, 6px 100%;
+  z-index: 10;
+  box-shadow: inset 0 0 70px rgba(0, 0, 0, 0.7);
+}
+
+/* Capa de interfaces */
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.screen-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #06090e;
+  cursor: pointer;
+}
+
+.screen-view.hidden {
+  opacity: 0;
+  pointer-events: none;
+  display: none;
+}
+
+.screen-view.active {
+  opacity: 1;
+  pointer-events: auto;
+  display: flex;
+}
+
+/* Animación Glitch al aparecer la pantalla de bucle temporal */
+#screen-loop.active {
+  animation: glitchLoopIntro 0.38s ease-out forwards;
+}
+
+@keyframes glitchLoopIntro {
+  0% {
+    transform: translate(0, 0);
+    filter: drop-shadow(-8px 0 #00ffff) drop-shadow(8px 0 #ff007f);
+  }
+  20% {
+    transform: translate(-5px, 2px);
+    filter: drop-shadow(6px 0 #00ffff) drop-shadow(-6px 0 #ff007f) brightness(1.2);
+  }
+  40% {
+    transform: translate(4px, -2px);
+    filter: drop-shadow(-4px 0 #39ff14) drop-shadow(4px 0 #ff007f);
+  }
+  65% {
+    transform: translate(-2px, 1px);
+    filter: drop-shadow(3px 0 #00ffff) drop-shadow(-3px 0 #ff007f);
+  }
+  85% {
+    transform: translate(1px, 0);
+    filter: brightness(1.05);
+  }
+  100% {
+    transform: translate(0, 0);
+    filter: none;
+  }
+}
+
+.screen-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #06090e;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Hotspots transparentes interactivos */
+.hotspot-btn {
+  position: absolute;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  border-radius: 8px;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.hotspot-btn:hover {
+  background: rgba(254, 240, 138, 0.14);
+  box-shadow: 0 0 20px rgba(254, 240, 138, 0.6);
+}
+
+.hotspot-btn:active {
+  transform: scale(0.97);
+}
+
+/* 1. Botón Iniciar Salto en la Portada */
+.btn-start-jump {
+  top: 61.5%;
+  left: 64%;
+  width: 33%;
+  height: 11%;
+  border-radius: 12px;
+}
+
+/* 2. Botón Entendido en Cómo Funciona */
+.btn-tutorial-understood {
+  top: 83%;
+  left: 47%;
+  width: 45%;
+  height: 11%;
+  border-radius: 12px;
+}
+
+/* 3. Botón Reintentar en Impacto Crítico */
+.btn-death-retry {
+  top: 72.5%;
+  left: 12%;
+  width: 76%;
+  height: 13.5%;
+  border-radius: 14px;
+}
+
+/* 4. Botón en Bucle Temporal */
+.btn-loop-prompt {
+  top: 71.5%;
+  left: 7%;
+  width: 86%;
+  height: 7.5%;
+  border-radius: 8px;
+}
+
+/* 5. Botón en Misión Fallida */
+.btn-gameover-restart {
+  top: 72.5%;
+  left: 12%;
+  width: 76%;
+  height: 13.5%;
+  border-radius: 14px;
+}
+
+/* 6. Botón en Victoria Final */
+.btn-victory-restart {
+  top: 68%;
+  left: 10%;
+  width: 80%;
+  height: 11%;
+  border-radius: 14px;
+}

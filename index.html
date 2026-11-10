@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Caída Libre - Arcade 64-Bit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game-wrapper">
+    <!-- Canvas Principal 768x1024 -->
+    <canvas id="gameCanvas" width="768" height="1024"></canvas>
+
+    <!-- Overlay CRT Scanlines -->
+    <div id="crt-overlay"></div>
+
+    <!-- Capa de Pantallas Oficiales (100% fieles al arte, sin textos superpuestos) -->
+    <div id="ui-layer">
+
+      <!-- 1. PANTALLA DE PORTADA (start_screen.jpg) -->
+      <div id="screen-start" class="screen-view active">
+        <img src="assets/start_screen.jpg" class="screen-bg-img" alt="Caída Libre Portada">
+        <button id="btn-start-action" class="hotspot-btn btn-start-jump" aria-label="Iniciar Salto"></button>
+      </div>
+
+      <!-- 2. PANTALLA CÓMO FUNCIONA (how_it_works.jpg) -->
+      <div id="screen-tutorial" class="screen-view hidden">
+        <img src="assets/how_it_works.jpg" class="screen-bg-img" alt="Cómo Funciona">
+        <button id="btn-tutorial-ok" class="hotspot-btn btn-tutorial-understood" aria-label="Entendido"></button>
+      </div>
+
+      <!-- 3. PANTALLA DE IMPACTO CRÍTICO / VIDA PERDIDA (death_screen.jpg) -->
+      <div id="screen-death" class="screen-view hidden">
+        <img src="assets/death_screen.jpg" class="screen-bg-img" alt="Impacto Crítico">
+        <button id="btn-retry-action" class="hotspot-btn btn-death-retry" aria-label="Reintentar Nivel"></button>
+      </div>
+
+      <!-- 4. PANTALLA DE BUCLE TEMPORAL / DIÁLOGO (loop_dialog_screen.jpg) -->
+      <div id="screen-loop" class="screen-view hidden">
+        <img src="assets/loop_dialog_screen.jpg" class="screen-bg-img" alt="Bucle Temporal">
+        <button id="btn-loop-jump" class="hotspot-btn btn-loop-prompt" aria-label="Saltar de nuevo"></button>
+      </div>
+
+      <!-- 5. PANTALLA DE MISIÓN FALLIDA / GAME OVER (gameover_screen.jpg) -->
+      <div id="screen-gameover" class="screen-view hidden">
+        <img src="assets/gameover_screen.jpg" class="screen-bg-img" alt="Misión Fallida">
+        <button id="btn-restart-action" class="hotspot-btn btn-gameover-restart" aria-label="Reiniciar desde Nivel 1"></button>
+      </div>
+
+      <!-- 6. PANTALLA DE VICTORIA FINAL (victory_screen.jpg) -->
+      <div id="screen-victory" class="screen-view hidden">
+        <img src="assets/victory_screen.jpg" class="screen-bg-img" alt="Victoria Final">
+        <button id="btn-play-again-action" class="hotspot-btn btn-victory-restart" aria-label="Jugar de nuevo"></button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts modulares del juego -->
+  <script src="audio.js"></script>
+  <script src="assets.js"></script>
+  <script src="character.js"></script>
+  <script src="obstacles.js"></script>
+  <script src="environment.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
